@@ -1,6 +1,9 @@
 # xremove
 
 **Pull any song apart — on your own GPU.**
+<img width="1298" height="846" alt="image" src="https://github.com/user-attachments/assets/8e3e3d45-f89f-4ddf-b5dd-a731485db0ca" /><img width="1298" height="847" alt="image" src="https://github.com/user-attachments/assets/8e1cbb9f-85e9-4816-a72f-a544e62dccc5" />![Uploading image.png…]()
+
+
 
 Drop in a track and xremove splits it into **vocals, drums, bass and other**,
 each on its own fader. Then watch it rain down as **glassy falling notes on a
