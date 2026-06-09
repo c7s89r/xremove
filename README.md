@@ -1,7 +1,11 @@
 # xremove
 
 **Pull any song apart — on your own GPU.**
-<img width="1298" height="846" alt="image" src="https://github.com/user-attachments/assets/8e3e3d45-f89f-4ddf-b5dd-a731485db0ca" /><img width="1298" height="847" alt="image" src="https://github.com/user-attachments/assets/8e1cbb9f-85e9-4816-a72f-a544e62dccc5" />![Uploading image.png…]()
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8e3e3d45-f89f-4ddf-b5dd-a731485db0ca" width="32%">
+  <img src="https://github.com/user-attachments/assets/8e1cbb9f-85e9-4816-a72f-a544e62dccc5" width="32%">
+  <img src="https://github.com/user-attachments/assets/863627cd-52d8-4095-989d-aa44ee441049" width="32%">
+</p>
 
 
 
