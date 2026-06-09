@@ -3,8 +3,8 @@
 **Pull any song apart — on your own GPU.**
 
 Drop in a track and xremove splits it into **vocals, drums, bass and other**,
-each on its own fader. Then watch it rain down as a **SeeMusic-style falling-note
-piano**, hear it played back on a **real sampled grand piano**, and turn it into
+each on its own fader. Then watch it rain down as **glassy falling notes on a
+glowing piano**, hear it played back on a **real sampled grand piano**, and turn it into
 **MIDI and engraved sheet music** — all running locally.
 
 Built end to end on **PyTorch** with **CUDA** acceleration. PyTorch is the engine

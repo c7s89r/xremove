@@ -1,7 +1,7 @@
 {
   "name": "xremove",
   "version": "1.0.0",
-  "description": "Local stem-separation studio with a SeeMusic-style piano view and MIDI export.",
+  "description": "Pull any song apart on your GPU \u2014 stem separation, piano transcription and sheet music. Built on PyTorch + CUDA.",
   "author": "c7s89r",
   "main": "electron/main.js",
   "scripts": {
