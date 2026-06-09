@@ -1,0 +1,73 @@
+{
+  "name": "xremove",
+  "version": "1.0.0",
+  "description": "Local stem-separation studio with a SeeMusic-style piano view and MIDI export.",
+  "author": "c7s89r",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:backend": "python -m PyInstaller xremove-backend.spec --noconfirm --distpath backend-dist --workpath build/pyi",
+    "dist": "electron-builder",
+    "pack": "electron-builder --dir"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "strip-comments": "^2.0.1"
+  },
+  "build": {
+    "appId": "com.c7s89r.xremove",
+    "productName": "xremove",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "build/icon.png"
+    ],
+    "extraResources": [
+      {
+        "from": "static",
+        "to": "static"
+      },
+      {
+        "from": "backend",
+        "to": "backend",
+        "filter": [
+          "**/*.py"
+        ]
+      },
+      {
+        "from": "backend-dist",
+        "to": "backend-dist",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "bin",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false
+    }
+  }
+}

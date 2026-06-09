@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+python-multipart
+demucs
+soundfile
+basic-pitch
+onnxruntime
+librosa
+resampy
+pretty_midi
+mir_eval
+piano_transcription_inference
+music21

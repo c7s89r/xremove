@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>xremove — stem separation studio</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="app" id="app">
+
+<aside class="sidebar" id="sidebar">
+  <div class="side-top">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">xremove</span>
+    </div>
+    <button class="icon-btn" id="collapse" title="Collapse sidebar">‹</button>
+  </div>
+
+  <button class="new-btn" id="new-project">
+    <span class="plus">+</span> New separation
+  </button>
+
+  <div class="search">
+    <input type="text" id="search" placeholder="Search projects" autocomplete="off">
+  </div>
+
+  <div class="side-tabs" id="side-tabs">
+    <button class="side-tab on" data-tab="recent">Recent</button>
+    <button class="side-tab" data-tab="favorites">Starred</button>
+    <button class="side-tab" data-tab="all">All</button>
+  </div>
+
+  <div class="project-list" id="project-list"></div>
+
+  <div class="side-foot">
+    <div class="links">
+      <a class="link-btn gh" href="https://github.com/c7s89r" target="_blank" rel="noopener" title="GitHub — salad fingers">
+        <span class="link-chip"><img class="link-avatar" src="https://github.com/c7s89r.png?size=96" alt="salad fingers" referrerpolicy="no-referrer" onerror="this.classList.add('avatar-fail')"></span>
+        <span class="link-meta">
+          <span class="link-plat">@c7s89r</span>
+          <span class="link-text">salad fingers</span>
+        </span>
+      </a>
+      <a class="link-btn gh" href="https://github.com/p8oz" target="_blank" rel="noopener" title="GitHub — p8oz">
+        <span class="link-chip"><img class="link-avatar" src="https://github.com/p8oz.png?size=96" alt="p8oz" referrerpolicy="no-referrer" onerror="this.classList.add('avatar-fail')"></span>
+        <span class="link-meta">
+          <span class="link-plat">@p8oz</span>
+          <span class="link-text">p8oz</span>
+        </span>
+      </a>
+    </div>
+    <div class="dev-row">
+      <span class="dev-dot" id="dev-dot"></span>
+      <span class="dev-label" id="dev-label">connecting</span>
+    </div>
+  </div>
+</aside>
+
+<main class="content">
+  <header class="topbar">
+    <div class="crumbs">
+      <span class="crumb-root">Studio</span>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-cur" id="crumb">Home</span>
+    </div>
+    <div class="top-actions">
+      <button class="ghost-btn" id="shortcuts-btn" title="Keyboard shortcuts">Keys</button>
+      <button class="ghost-btn" id="theme-btn" title="Toggle theme">Theme</button>
+    </div>
+  </header>
+
+  <div class="scroll" id="scroll">
+
+
+  <section id="home" class="view">
+    <div class="hero">
+      <div class="hero-glyph" id="hero-glyph"></div>
+      <h1>Pull any track apart.</h1>
+      <p>Split a song into vocals, drums, bass and other — each on its own fader, ready to mix, solo, download and export.</p>
+    </div>
+
+    <section id="drop" class="drop">
+      <input type="file" id="file" accept="audio/*" hidden>
+      <div class="drop-inner">
+        <span class="drop-ico"></span>
+        <span class="drop-title">Drop audio here</span>
+        <span class="drop-sub">or click to choose — mp3, wav, flac, m4a</span>
+      </div>
+    </section>
+
+    <section class="quality">
+      <span class="quality-label">Engine</span>
+      <div class="seg" id="seg">
+        <button class="seg-btn on" data-q="clean">
+          <span class="seg-title">Studio</span>
+          <span class="seg-sub">cleanest · ~1 min</span>
+        </button>
+        <button class="seg-btn" data-q="fast">
+          <span class="seg-title">Fast</span>
+          <span class="seg-sub">quick preview · ~15s</span>
+        </button>
+      </div>
+    </section>
+  </section>
+
+
+  <section id="status" class="status view hidden">
+    <div class="status-head">
+      <span class="status-name" id="status-name">track</span>
+      <span class="status-pct" id="status-pct">0%</span>
+    </div>
+    <div class="bar"><div id="fill" class="fill"></div></div>
+    <span id="status-text" class="status-text">uploading</span>
+    <div class="status-steps" id="status-steps"></div>
+  </section>
+
+
+  <section id="player" class="player view hidden">
+    <div class="player-head">
+      <div class="now-wrap">
+        <input class="now-name" id="now-name" value="" spellcheck="false">
+        <div class="now-meta" id="now-meta"></div>
+      </div>
+      <div class="player-tabs" id="player-tabs">
+        <button class="ptab on" data-ptab="studio">Studio</button>
+        <button class="ptab" data-ptab="piano">Piano</button>
+        <button class="ptab" data-ptab="sheets">Sheets</button>
+      </div>
+      <div class="player-head-actions">
+        <button class="ghost-btn" id="star-btn" title="Star project">Star</button>
+        <button class="ghost-btn" id="export-btn" title="Export current mix to WAV (E)">Export WAV</button>
+        <button class="ghost-btn" id="midi-btn" title="Export all stems as MIDI (D)">Export MIDI</button>
+      </div>
+    </div>
+
+    <div class="player-body" id="player-body">
+
+      <div class="studio-view" id="studio-view">
+        <div class="wave-wrap">
+          <canvas id="wave" class="wave"></canvas>
+          <div class="wave-cursor" id="wave-cursor"></div>
+        </div>
+        <div class="stems" id="stems"></div>
+        <div class="master">
+          <div class="master-head">
+            <span class="master-name">Master</span>
+            <span class="master-val" id="master-val">100</span>
+          </div>
+          <input type="range" id="master-vol" min="0" max="100" value="100">
+          <div class="stem-meter master-meter"><div class="stem-meter-fill" id="master-meter-fill"></div></div>
+        </div>
+      </div>
+
+
+      <div class="piano-view hidden" id="piano-view">
+        <div class="stage" id="stage">
+          <canvas id="roll" class="roll"></canvas>
+          <canvas id="keys" class="keys"></canvas>
+          <div class="stage-overlay hidden" id="stage-overlay">
+            <div class="spinner"></div>
+            <div class="stage-overlay-title" id="stage-overlay-title">Transcribing to MIDI…</div>
+            <div class="stage-overlay-sub" id="stage-overlay-sub">building the piano roll</div>
+            <div class="bar mini"><div id="midi-fill" class="fill"></div></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="sheets-view hidden" id="sheets-view">
+        <div class="sheet-bar">
+          <div class="sheet-parts" id="sheet-parts">
+            <button class="spart on" data-part="piano">Piano</button>
+            <button class="spart" data-part="vocals">Vocals</button>
+            <button class="spart" data-part="bass">Bass</button>
+            <button class="spart" data-part="other">Other</button>
+          </div>
+          <div class="sheet-actions">
+            <button class="ghost-btn" id="sheet-midi">Export MIDI</button>
+            <button class="ghost-btn" id="sheet-dl">Download MusicXML</button>
+          </div>
+        </div>
+        <div class="sheet-scroll" id="sheet-scroll">
+          <div class="sheet-paper" id="sheet-host"></div>
+          <div class="sheet-overlay" id="sheet-overlay">
+            <div class="spinner"></div>
+            <div class="stage-overlay-title" id="sheet-msg">Engraving…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="transport">
+      <button class="play" id="play" title="Play / pause (space)">Play</button>
+      <button class="t-btn" id="back" title="Back 5s (←)">«</button>
+      <button class="t-btn" id="fwd" title="Forward 5s (→)">»</button>
+      <button class="t-btn toggle-btn" id="loop" title="Loop (L)">Loop</button>
+      <div class="seek">
+        <input type="range" id="seek" min="0" max="1000" value="0" step="1">
+        <div class="time"><span id="cur">0:00</span><span id="dur">0:00</span></div>
+      </div>
+      <div class="rate">
+        <label>Speed</label>
+        <select id="rate">
+          <option value="0.5">0.5x</option>
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button id="reset" class="reset">Back to library</button>
+      <button id="delete-btn" class="reset danger">Delete project</button>
+      <span class="keys">space play · 1–4 mute · ←/→ seek · L loop · D export MIDI</span>
+    </div>
+  </section>
+
+  </div>
+</main>
+</div>
+
+<div class="modal hidden" id="shortcuts-modal">
+  <div class="modal-card">
+    <div class="modal-head"><span>Keyboard shortcuts</span><button class="icon-btn" id="shortcuts-close">×</button></div>
+    <div class="modal-body" id="shortcuts-body"></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script src="/vendor/osmd.min.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
